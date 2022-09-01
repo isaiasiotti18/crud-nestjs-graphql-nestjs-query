@@ -1,0 +1,378 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Brand {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+type Category {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateBrandInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input CreateManyProductsInput {
+  """Array of records to create"""
+  products: [CreateProductInput!]!
+}
+
+input CreateOneProductInput {
+  """The record to create"""
+  product: CreateProductInput!
+}
+
+input CreateProductInput {
+  brand: String!
+  category: String!
+  description: String
+  name: String!
+  price: Int!
+}
+
+input DateFieldComparison {
+  between: DateFieldComparisonBetween
+  eq: DateTime
+  gt: DateTime
+  gte: DateTime
+  in: [DateTime!]
+  is: Boolean
+  isNot: Boolean
+  lt: DateTime
+  lte: DateTime
+  neq: DateTime
+  notBetween: DateFieldComparisonBetween
+  notIn: [DateTime!]
+}
+
+input DateFieldComparisonBetween {
+  lower: DateTime!
+  upper: DateTime!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+input DeleteManyProductsInput {
+  """Filter to find records to delete"""
+  filter: ProductDeleteFilter!
+}
+
+type DeleteManyResponse {
+  """The number of records deleted."""
+  deletedCount: Int!
+}
+
+input DeleteOneProductInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
+type Mutation {
+  createBrand(createBrandInput: CreateBrandInput!): Brand!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createManyProducts(input: CreateManyProductsInput!): [Product!]!
+  createOneProduct(input: CreateOneProductInput!): Product!
+  createProduct(createProductInput: CreateProductInput!): Product!
+  deleteManyProducts(input: DeleteManyProductsInput!): DeleteManyResponse!
+  deleteOneProduct(input: DeleteOneProductInput!): ProductDeleteResponse!
+  removeBrand(id: Int!): Brand!
+  removeCategory(id: Int!): Category!
+  removeProduct(id: ID!): Product!
+  updateBrand(updateBrandInput: UpdateBrandInput!): Brand!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateManyProducts(input: UpdateManyProductsInput!): UpdateManyResponse!
+  updateOneProduct(input: UpdateOneProductInput!): Product!
+  updateProduct(updateProductInput: UpdateProductInput!): Product!
+}
+
+input NumberFieldComparison {
+  between: NumberFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: NumberFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input NumberFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
+}
+
+type OffsetPageInfo {
+  """true if paging forward and there are more records."""
+  hasNextPage: Boolean
+
+  """true if paging backwards and there are more records."""
+  hasPreviousPage: Boolean
+}
+
+input OffsetPaging {
+  """Limit the number of records returned"""
+  limit: Int
+
+  """Offset to start returning records from"""
+  offset: Int
+}
+
+type Product {
+  brand: String!
+  category: String!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  description: String
+  id: String!
+  name: String!
+  price: Float!
+  updatedAt: DateTime!
+}
+
+type ProductAggregateGroupBy {
+  brand: String
+  category: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: String
+  name: String
+  price: Float
+  updatedAt: DateTime
+}
+
+type ProductAvgAggregate {
+  price: Float
+}
+
+type ProductConnection {
+  """Array of nodes."""
+  nodes: [Product!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type ProductCountAggregate {
+  brand: Int
+  category: Int
+  createdAt: Int
+  deletedAt: Int
+  description: Int
+  id: Int
+  name: Int
+  price: Int
+  updatedAt: Int
+}
+
+input ProductDeleteFilter {
+  and: [ProductDeleteFilter!]
+  brand: StringFieldComparison
+  category: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [ProductDeleteFilter!]
+  price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type ProductDeleteResponse {
+  brand: String
+  category: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: String
+  name: String
+  price: Float
+  updatedAt: DateTime
+}
+
+input ProductFilter {
+  and: [ProductFilter!]
+  brand: StringFieldComparison
+  category: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [ProductFilter!]
+  price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type ProductMaxAggregate {
+  brand: String
+  category: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: String
+  name: String
+  price: Float
+  updatedAt: DateTime
+}
+
+type ProductMinAggregate {
+  brand: String
+  category: String
+  createdAt: DateTime
+  deletedAt: DateTime
+  description: String
+  id: String
+  name: String
+  price: Float
+  updatedAt: DateTime
+}
+
+input ProductSort {
+  direction: SortDirection!
+  field: ProductSortFields!
+  nulls: SortNulls
+}
+
+enum ProductSortFields {
+  brand
+  category
+  createdAt
+  deletedAt
+  description
+  id
+  name
+  price
+  updatedAt
+}
+
+type ProductSumAggregate {
+  price: Float
+}
+
+input ProductUpdateFilter {
+  and: [ProductUpdateFilter!]
+  brand: StringFieldComparison
+  category: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [ProductUpdateFilter!]
+  price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type Query {
+  brand(id: Int!): Brand!
+  brands: [Brand!]!
+  categories: [Category!]!
+  category(id: Int!): Category!
+  product(
+    """The id of the record to find."""
+    id: ID!
+  ): Product
+  products(
+    """Specify to filter the records returned."""
+    filter: ProductFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ProductSort!] = []
+  ): ProductConnection!
+}
+
+"""Sort Directions"""
+enum SortDirection {
+  ASC
+  DESC
+}
+
+"""Sort Nulls Options"""
+enum SortNulls {
+  NULLS_FIRST
+  NULLS_LAST
+}
+
+input StringFieldComparison {
+  eq: String
+  gt: String
+  gte: String
+  iLike: String
+  in: [String!]
+  is: Boolean
+  isNot: Boolean
+  like: String
+  lt: String
+  lte: String
+  neq: String
+  notILike: String
+  notIn: [String!]
+  notLike: String
+}
+
+input UpdateBrandInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateCategoryInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input UpdateManyProductsInput {
+  """Filter used to find fields to update"""
+  filter: ProductUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateProductInput!
+}
+
+type UpdateManyResponse {
+  """The number of records updated."""
+  updatedCount: Int!
+}
+
+input UpdateOneProductInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateProductInput!
+}
+
+input UpdateProductInput {
+  brand: String
+  category: String
+  description: String
+  id: ID
+  name: String
+  price: Int
+}
