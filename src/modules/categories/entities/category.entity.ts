@@ -1,7 +1,8 @@
-import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { BaseEntity } from './../../../common/bases/entities/base.entity';
+import { Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@ObjectType()
-export class Category {
-  @Field(() => Int, { description: 'Example field (placeholder)' })
-  exampleField: number;
+@Entity()
+export class Category extends BaseEntity {
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 }

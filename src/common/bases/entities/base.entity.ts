@@ -9,7 +9,7 @@ import {
 @Entity()
 export class BaseEntity {
   @PrimaryGeneratedColumn('uuid')
-  id: string;
+  id: string | number;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

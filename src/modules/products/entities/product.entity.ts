@@ -3,10 +3,7 @@ import { Column, Entity } from 'typeorm';
 
 @Entity()
 export class Product extends BaseEntity {
-  @Column({
-    type: 'varchar',
-    length: 25,
-  })
+  @Column()
   name: string;
 
   @Column({ nullable: true })
