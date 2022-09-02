@@ -5,9 +5,9 @@ import { ProductsModule } from './modules/products/products.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BrandsModule } from './modules/brands/brands.module';
-import { CategoriesModule } from './modules/categories/categories.module';
 import { typeormAsyncConfig } from './config/database/typeorm/typeorm.config';
 import { join } from 'path';
+import { CategoriesModule } from './modules/categories/categories.module';
 
 @Module({
   imports: [

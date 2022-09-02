@@ -8,8 +8,106 @@ type Brand {
 }
 
 type Category {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  id: String!
+  name: String!
+  updatedAt: DateTime!
+}
+
+type CategoryAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type CategoryConnection {
+  """Array of nodes."""
+  nodes: [Category!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type CategoryCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  id: Int
+  name: Int
+  updatedAt: Int
+}
+
+input CategoryDeleteFilter {
+  and: [CategoryDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [CategoryDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type CategoryDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input CategoryFilter {
+  and: [CategoryFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [CategoryFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type CategoryMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type CategoryMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input CategorySort {
+  direction: SortDirection!
+  field: CategorySortFields!
+  nulls: SortNulls
+}
+
+enum CategorySortFields {
+  createdAt
+  deletedAt
+  id
+  name
+  updatedAt
+}
+
+input CategoryUpdateFilter {
+  and: [CategoryUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [CategoryUpdateFilter!]
+  updatedAt: DateFieldComparison
 }
 
 input CreateBrandInput {
@@ -18,13 +116,22 @@ input CreateBrandInput {
 }
 
 input CreateCategoryInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+}
+
+input CreateManyCategoriesInput {
+  """Array of records to create"""
+  categories: [CreateCategoryInput!]!
 }
 
 input CreateManyProductsInput {
   """Array of records to create"""
   products: [CreateProductInput!]!
+}
+
+input CreateOneCategoryInput {
+  """The record to create"""
+  category: CreateCategoryInput!
 }
 
 input CreateOneProductInput {
@@ -65,6 +172,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeleteManyCategoriesInput {
+  """Filter to find records to delete"""
+  filter: CategoryDeleteFilter!
+}
+
 input DeleteManyProductsInput {
   """Filter to find records to delete"""
   filter: ProductDeleteFilter!
@@ -75,6 +187,11 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
+input DeleteOneCategoryInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneProductInput {
   """The id of the record to delete."""
   id: ID!
@@ -83,17 +200,23 @@ input DeleteOneProductInput {
 type Mutation {
   createBrand(createBrandInput: CreateBrandInput!): Brand!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createManyCategories(input: CreateManyCategoriesInput!): [Category!]!
   createManyProducts(input: CreateManyProductsInput!): [Product!]!
+  createOneCategory(input: CreateOneCategoryInput!): Category!
   createOneProduct(input: CreateOneProductInput!): Product!
   createProduct(createProductInput: CreateProductInput!): Product!
+  deleteManyCategories(input: DeleteManyCategoriesInput!): DeleteManyResponse!
   deleteManyProducts(input: DeleteManyProductsInput!): DeleteManyResponse!
+  deleteOneCategory(input: DeleteOneCategoryInput!): CategoryDeleteResponse!
   deleteOneProduct(input: DeleteOneProductInput!): ProductDeleteResponse!
   removeBrand(id: Int!): Brand!
   removeCategory(id: Int!): Category!
   removeProduct(id: ID!): Product!
   updateBrand(updateBrandInput: UpdateBrandInput!): Brand!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateManyCategories(input: UpdateManyCategoriesInput!): UpdateManyResponse!
   updateManyProducts(input: UpdateManyProductsInput!): UpdateManyResponse!
+  updateOneCategory(input: UpdateOneCategoryInput!): Category!
   updateOneProduct(input: UpdateOneProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
 }
@@ -288,8 +411,20 @@ input ProductUpdateFilter {
 type Query {
   brand(id: Int!): Brand!
   brands: [Brand!]!
-  categories: [Category!]!
-  category(id: Int!): Category!
+  categories(
+    """Specify to filter the records returned."""
+    filter: CategoryFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [CategorySort!] = []
+  ): CategoryConnection!
+  category(
+    """The id of the record to find."""
+    id: ID!
+  ): Category
   product(
     """The id of the record to find."""
     id: ID!
@@ -342,9 +477,16 @@ input UpdateBrandInput {
 }
 
 input UpdateCategoryInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  id: ID
+  name: String
+}
+
+input UpdateManyCategoriesInput {
+  """Filter used to find fields to update"""
+  filter: CategoryUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateCategoryInput!
 }
 
 input UpdateManyProductsInput {
@@ -358,6 +500,14 @@ input UpdateManyProductsInput {
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
+}
+
+input UpdateOneCategoryInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateCategoryInput!
 }
 
 input UpdateOneProductInput {
