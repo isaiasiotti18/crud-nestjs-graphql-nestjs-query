@@ -102,8 +102,6 @@ input BrandFilter {
 
 input BrandFilterProductFilter {
   and: [BrandFilterProductFilter!]
-  brand: StringFieldComparison
-  category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
@@ -241,8 +239,6 @@ input CategoryFilter {
 
 input CategoryFilterProductFilter {
   and: [CategoryFilterProductFilter!]
-  brand: StringFieldComparison
-  category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
@@ -343,8 +339,6 @@ input CreateOneProductInput {
 }
 
 input CreateProductInput {
-  brand: String!
-  category: String!
   description: String
   name: String!
   price: Int!
@@ -499,7 +493,6 @@ type Product {
     """Specify to sort results."""
     sorting: [CategorySort!] = []
   ): ProductCategoriesConnection
-  category: String!
   createdAt: DateTime!
   deletedAt: DateTime!
   description: String
@@ -510,8 +503,6 @@ type Product {
 }
 
 type ProductAggregateGroupBy {
-  brand: String
-  category: String
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -548,8 +539,6 @@ type ProductConnection {
 }
 
 type ProductCountAggregate {
-  brand: Int
-  category: Int
   createdAt: Int
   deletedAt: Int
   description: Int
@@ -561,8 +550,6 @@ type ProductCountAggregate {
 
 input ProductDeleteFilter {
   and: [ProductDeleteFilter!]
-  brand: StringFieldComparison
-  category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
@@ -574,8 +561,6 @@ input ProductDeleteFilter {
 }
 
 type ProductDeleteResponse {
-  brand: String
-  category: String
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -587,9 +572,8 @@ type ProductDeleteResponse {
 
 input ProductFilter {
   and: [ProductFilter!]
-  brand: StringFieldComparison
+  brand: ProductFilterBrandFilter
   categories: ProductFilterCategoryFilter
-  category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
@@ -597,6 +581,16 @@ input ProductFilter {
   name: StringFieldComparison
   or: [ProductFilter!]
   price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+input ProductFilterBrandFilter {
+  and: [ProductFilterBrandFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [ProductFilterBrandFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -611,8 +605,6 @@ input ProductFilterCategoryFilter {
 }
 
 type ProductMaxAggregate {
-  brand: String
-  category: String
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -623,8 +615,6 @@ type ProductMaxAggregate {
 }
 
 type ProductMinAggregate {
-  brand: String
-  category: String
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -641,8 +631,6 @@ input ProductSort {
 }
 
 enum ProductSortFields {
-  brand
-  category
   createdAt
   deletedAt
   description
@@ -658,8 +646,6 @@ type ProductSumAggregate {
 
 input ProductUpdateFilter {
   and: [ProductUpdateFilter!]
-  brand: StringFieldComparison
-  category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
@@ -872,8 +858,6 @@ input UpdateOneProductInput {
 }
 
 input UpdateProductInput {
-  brand: String
-  category: String
   description: String
   id: ID
   name: String
