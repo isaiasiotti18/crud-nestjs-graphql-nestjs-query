@@ -21,11 +21,5 @@ export class ProductDTO extends BaseDTO {
   description?: string;
 
   @FilterableField()
-  brand: string;
-
-  @FilterableField()
-  category: string;
-
-  @FilterableField()
   price: number;
 }
