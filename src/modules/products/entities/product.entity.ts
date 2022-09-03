@@ -1,5 +1,14 @@
+import { Category } from './../../categories/entities/category.entity';
+import { Brand } from './../../brands/entities/brand.entity';
 import { BaseEntity } from './../../../common/bases/entities/base.entity';
-import { Column, Entity } from 'typeorm';
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+  ManyToOne,
+} from 'typeorm';
 
 @Entity()
 export class Product extends BaseEntity {
@@ -9,11 +18,16 @@ export class Product extends BaseEntity {
   @Column({ nullable: true })
   description?: string;
 
-  @Column()
-  brand: string;
+  @ManyToOne(() => Brand, (brand) => brand.products)
+  @JoinColumn({ name: 'brandId' })
+  brand: Brand;
 
   @Column()
-  category: string;
+  brandId: number;
+
+  @ManyToMany(() => Category)
+  @JoinTable()
+  categories: Category[];
 
   @Column({
     type: 'decimal',

@@ -1,34 +1,34 @@
+import { BrandDTO } from './dto/brand.dto';
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { BrandsService } from './brands.service';
-import { Brand } from './entities/brand.entity';
 import { CreateBrandInput } from './dto/create-brand.input';
 import { UpdateBrandInput } from './dto/update-brand.input';
 
-@Resolver(() => Brand)
+@Resolver(() => BrandDTO)
 export class BrandsResolver {
   constructor(private readonly brandsService: BrandsService) {}
 
-  @Mutation(() => Brand)
+  @Mutation(() => BrandDTO)
   createBrand(@Args('createBrandInput') createBrandInput: CreateBrandInput) {
     return this.brandsService.create(createBrandInput);
   }
 
-  @Query(() => [Brand], { name: 'brands' })
+  @Query(() => [BrandDTO], { name: 'brands' })
   findAll() {
     return this.brandsService.findAll();
   }
 
-  @Query(() => Brand, { name: 'brand' })
+  @Query(() => BrandDTO, { name: 'brand' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.brandsService.findOne(id);
   }
 
-  @Mutation(() => Brand)
+  @Mutation(() => BrandDTO)
   updateBrand(@Args('updateBrandInput') updateBrandInput: UpdateBrandInput) {
     return this.brandsService.update(updateBrandInput.id, updateBrandInput);
   }
 
-  @Mutation(() => Brand)
+  @Mutation(() => BrandDTO)
   removeBrand(@Args('id', { type: () => Int }) id: number) {
     return this.brandsService.remove(id);
   }

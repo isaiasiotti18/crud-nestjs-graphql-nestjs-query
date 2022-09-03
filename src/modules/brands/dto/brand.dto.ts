@@ -1,16 +1,14 @@
 import { ProductDTO } from './../../products/dto/product.dto';
 import { BaseDTO } from './../../../common/bases/dto/base.dto';
-import { ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
   FilterableOffsetConnection,
 } from '@nestjs-query/query-graphql';
+import { ObjectType } from '@nestjs/graphql';
 
-@ObjectType('Category')
-@FilterableOffsetConnection('products', () => ProductDTO, {
-  nullable: true,
-})
-export class CategoryDTO extends BaseDTO {
+@ObjectType('Brand')
+@FilterableOffsetConnection('products', () => ProductDTO, { nullable: true })
+export class BrandDTO extends BaseDTO {
   @FilterableField()
   name: string;
 }

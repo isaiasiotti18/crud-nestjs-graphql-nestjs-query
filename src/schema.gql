@@ -2,9 +2,167 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input AddCategoriesToProductInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddProductsToBrandInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input AddProductsToCategoryInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
 type Brand {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  createdAt: DateTime!
+  deletedAt: DateTime!
+  id: String!
+  name: String!
+  products(
+    """Specify to filter the records returned."""
+    filter: ProductFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ProductSort!] = []
+  ): BrandProductsConnection
+  updatedAt: DateTime!
+}
+
+type BrandAggregateGroupBy {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type BrandConnection {
+  """Array of nodes."""
+  nodes: [Brand!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+type BrandCountAggregate {
+  createdAt: Int
+  deletedAt: Int
+  id: Int
+  name: Int
+  updatedAt: Int
+}
+
+input BrandDeleteFilter {
+  and: [BrandDeleteFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [BrandDeleteFilter!]
+  updatedAt: DateFieldComparison
+}
+
+type BrandDeleteResponse {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+input BrandFilter {
+  and: [BrandFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [BrandFilter!]
+  products: BrandFilterProductFilter
+  updatedAt: DateFieldComparison
+}
+
+input BrandFilterProductFilter {
+  and: [BrandFilterProductFilter!]
+  brand: StringFieldComparison
+  category: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [BrandFilterProductFilter!]
+  price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+type BrandMaxAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type BrandMinAggregate {
+  createdAt: DateTime
+  deletedAt: DateTime
+  id: String
+  name: String
+  updatedAt: DateTime
+}
+
+type BrandProductsConnection {
+  """Array of nodes."""
+  nodes: [Product!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
+}
+
+input BrandSort {
+  direction: SortDirection!
+  field: BrandSortFields!
+  nulls: SortNulls
+}
+
+enum BrandSortFields {
+  createdAt
+  deletedAt
+  id
+  name
+  updatedAt
+}
+
+input BrandUpdateFilter {
+  and: [BrandUpdateFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [BrandUpdateFilter!]
+  updatedAt: DateFieldComparison
 }
 
 type Category {
@@ -12,6 +170,16 @@ type Category {
   deletedAt: DateTime!
   id: String!
   name: String!
+  products(
+    """Specify to filter the records returned."""
+    filter: ProductFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [ProductSort!] = []
+  ): CategoryProductsConnection
   updatedAt: DateTime!
 }
 
@@ -67,6 +235,21 @@ input CategoryFilter {
   id: StringFieldComparison
   name: StringFieldComparison
   or: [CategoryFilter!]
+  products: CategoryFilterProductFilter
+  updatedAt: DateFieldComparison
+}
+
+input CategoryFilterProductFilter {
+  and: [CategoryFilterProductFilter!]
+  brand: StringFieldComparison
+  category: StringFieldComparison
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  description: StringFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [CategoryFilterProductFilter!]
+  price: NumberFieldComparison
   updatedAt: DateFieldComparison
 }
 
@@ -84,6 +267,17 @@ type CategoryMinAggregate {
   id: String
   name: String
   updatedAt: DateTime
+}
+
+type CategoryProductsConnection {
+  """Array of nodes."""
+  nodes: [Product!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 input CategorySort {
@@ -111,12 +305,16 @@ input CategoryUpdateFilter {
 }
 
 input CreateBrandInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
 }
 
 input CreateCategoryInput {
   name: String!
+}
+
+input CreateManyBrandsInput {
+  """Array of records to create"""
+  brands: [CreateBrandInput!]!
 }
 
 input CreateManyCategoriesInput {
@@ -127,6 +325,11 @@ input CreateManyCategoriesInput {
 input CreateManyProductsInput {
   """Array of records to create"""
   products: [CreateProductInput!]!
+}
+
+input CreateOneBrandInput {
+  """The record to create"""
+  brand: CreateBrandInput!
 }
 
 input CreateOneCategoryInput {
@@ -172,6 +375,11 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+input DeleteManyBrandsInput {
+  """Filter to find records to delete"""
+  filter: BrandDeleteFilter!
+}
+
 input DeleteManyCategoriesInput {
   """Filter to find records to delete"""
   filter: CategoryDeleteFilter!
@@ -187,6 +395,11 @@ type DeleteManyResponse {
   deletedCount: Int!
 }
 
+input DeleteOneBrandInput {
+  """The id of the record to delete."""
+  id: ID!
+}
+
 input DeleteOneCategoryInput {
   """The id of the record to delete."""
   id: ID!
@@ -198,24 +411,41 @@ input DeleteOneProductInput {
 }
 
 type Mutation {
+  addCategoriesToProduct(input: AddCategoriesToProductInput!): Product!
+  addProductsToBrand(input: AddProductsToBrandInput!): Brand!
+  addProductsToCategory(input: AddProductsToCategoryInput!): Category!
   createBrand(createBrandInput: CreateBrandInput!): Brand!
   createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  createManyBrands(input: CreateManyBrandsInput!): [Brand!]!
   createManyCategories(input: CreateManyCategoriesInput!): [Category!]!
   createManyProducts(input: CreateManyProductsInput!): [Product!]!
+  createOneBrand(input: CreateOneBrandInput!): Brand!
   createOneCategory(input: CreateOneCategoryInput!): Category!
   createOneProduct(input: CreateOneProductInput!): Product!
   createProduct(createProductInput: CreateProductInput!): Product!
+  deleteManyBrands(input: DeleteManyBrandsInput!): DeleteManyResponse!
   deleteManyCategories(input: DeleteManyCategoriesInput!): DeleteManyResponse!
   deleteManyProducts(input: DeleteManyProductsInput!): DeleteManyResponse!
+  deleteOneBrand(input: DeleteOneBrandInput!): BrandDeleteResponse!
   deleteOneCategory(input: DeleteOneCategoryInput!): CategoryDeleteResponse!
   deleteOneProduct(input: DeleteOneProductInput!): ProductDeleteResponse!
   removeBrand(id: Int!): Brand!
+  removeBrandFromProduct(input: RemoveBrandFromProductInput!): Product!
+  removeCategoriesFromProduct(input: RemoveCategoriesFromProductInput!): Product!
   removeCategory(id: Int!): Category!
   removeProduct(id: ID!): Product!
+  removeProductsFromBrand(input: RemoveProductsFromBrandInput!): Brand!
+  removeProductsFromCategory(input: RemoveProductsFromCategoryInput!): Category!
+  setBrandOnProduct(input: SetBrandOnProductInput!): Product!
+  setCategoriesOnProduct(input: SetCategoriesOnProductInput!): Product!
+  setProductsOnBrand(input: SetProductsOnBrandInput!): Brand!
+  setProductsOnCategory(input: SetProductsOnCategoryInput!): Category!
   updateBrand(updateBrandInput: UpdateBrandInput!): Brand!
   updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  updateManyBrands(input: UpdateManyBrandsInput!): UpdateManyResponse!
   updateManyCategories(input: UpdateManyCategoriesInput!): UpdateManyResponse!
   updateManyProducts(input: UpdateManyProductsInput!): UpdateManyResponse!
+  updateOneBrand(input: UpdateOneBrandInput!): Brand!
   updateOneCategory(input: UpdateOneCategoryInput!): Category!
   updateOneProduct(input: UpdateOneProductInput!): Product!
   updateProduct(updateProductInput: UpdateProductInput!): Product!
@@ -258,7 +488,17 @@ input OffsetPaging {
 }
 
 type Product {
-  brand: String!
+  brand: Brand!
+  categories(
+    """Specify to filter the records returned."""
+    filter: CategoryFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [CategorySort!] = []
+  ): ProductCategoriesConnection
   category: String!
   createdAt: DateTime!
   deletedAt: DateTime!
@@ -283,6 +523,17 @@ type ProductAggregateGroupBy {
 
 type ProductAvgAggregate {
   price: Float
+}
+
+type ProductCategoriesConnection {
+  """Array of nodes."""
+  nodes: [Category!]!
+
+  """Paging information"""
+  pageInfo: OffsetPageInfo!
+
+  """Fetch total count of records"""
+  totalCount: Int!
 }
 
 type ProductConnection {
@@ -337,6 +588,7 @@ type ProductDeleteResponse {
 input ProductFilter {
   and: [ProductFilter!]
   brand: StringFieldComparison
+  categories: ProductFilterCategoryFilter
   category: StringFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
@@ -345,6 +597,16 @@ input ProductFilter {
   name: StringFieldComparison
   or: [ProductFilter!]
   price: NumberFieldComparison
+  updatedAt: DateFieldComparison
+}
+
+input ProductFilterCategoryFilter {
+  and: [ProductFilterCategoryFilter!]
+  createdAt: DateFieldComparison
+  deletedAt: DateFieldComparison
+  id: StringFieldComparison
+  name: StringFieldComparison
+  or: [ProductFilterCategoryFilter!]
   updatedAt: DateFieldComparison
 }
 
@@ -409,8 +671,20 @@ input ProductUpdateFilter {
 }
 
 type Query {
-  brand(id: Int!): Brand!
-  brands: [Brand!]!
+  brand(
+    """The id of the record to find."""
+    id: ID!
+  ): Brand
+  brands(
+    """Specify to filter the records returned."""
+    filter: BrandFilter = {}
+
+    """Limit or page results."""
+    paging: OffsetPaging = {limit: 10}
+
+    """Specify to sort results."""
+    sorting: [BrandSort!] = []
+  ): BrandConnection!
   categories(
     """Specify to filter the records returned."""
     filter: CategoryFilter = {}
@@ -439,6 +713,70 @@ type Query {
     """Specify to sort results."""
     sorting: [ProductSort!] = []
   ): ProductConnection!
+}
+
+input RemoveBrandFromProductInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input RemoveCategoriesFromProductInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveProductsFromBrandInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input RemoveProductsFromCategoryInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetBrandOnProductInput {
+  """The id of the record."""
+  id: ID!
+
+  """The id of relation."""
+  relationId: ID!
+}
+
+input SetCategoriesOnProductInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetProductsOnBrandInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
+}
+
+input SetProductsOnCategoryInput {
+  """The id of the record."""
+  id: ID!
+
+  """The ids of the relations."""
+  relationIds: [ID!]!
 }
 
 """Sort Directions"""
@@ -471,14 +809,21 @@ input StringFieldComparison {
 }
 
 input UpdateBrandInput {
-  """Example field (placeholder)"""
-  exampleField: Int
-  id: Int!
+  id: Int
+  name: String
 }
 
 input UpdateCategoryInput {
   id: ID
   name: String
+}
+
+input UpdateManyBrandsInput {
+  """Filter used to find fields to update"""
+  filter: BrandUpdateFilter!
+
+  """The update to apply to all records found using the filter"""
+  update: UpdateBrandInput!
 }
 
 input UpdateManyCategoriesInput {
@@ -500,6 +845,14 @@ input UpdateManyProductsInput {
 type UpdateManyResponse {
   """The number of records updated."""
   updatedCount: Int!
+}
+
+input UpdateOneBrandInput {
+  """The id of the record to update"""
+  id: ID!
+
+  """The update to apply."""
+  update: UpdateBrandInput!
 }
 
 input UpdateOneCategoryInput {
