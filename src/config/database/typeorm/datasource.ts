@@ -14,5 +14,3 @@ export const datasource = new DataSource({
     charset: 'uft8mb4_unicode_ci',
   },
 });
-
-console.log(__dirname);

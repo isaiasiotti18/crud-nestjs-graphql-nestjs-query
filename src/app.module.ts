@@ -20,6 +20,7 @@ import { CategoriesModule } from './modules/categories/categories.module';
       playground: true,
       autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
       sortSchema: true,
+      introspection: true,
     }),
     ProductsModule,
     BrandsModule,

@@ -1,7 +1,7 @@
-import { BrandDTO } from './../../brands/dto/brand.dto';
+import { BrandDTO } from 'src/modules/brands/dto/brand.dto';
 import { CategoryDTO } from './../../categories/dto/category.dto';
 import { BaseDTO } from './../../../common/bases/dto/base.dto';
-import { ObjectType } from '@nestjs/graphql';
+import { Float, ObjectType } from '@nestjs/graphql';
 import {
   FilterableField,
   FilterableOffsetConnection,
@@ -12,7 +12,7 @@ import {
 @FilterableOffsetConnection('categories', () => CategoryDTO, {
   nullable: true,
 })
-@FilterableRelation('brand', () => BrandDTO)
+@FilterableRelation('brand', () => BrandDTO, { nullable: true })
 export class ProductDTO extends BaseDTO {
   @FilterableField()
   name: string;
@@ -20,6 +20,9 @@ export class ProductDTO extends BaseDTO {
   @FilterableField({ nullable: true })
   description?: string;
 
-  @FilterableField()
+  @FilterableField({ nullable: true })
+  brandId?: number;
+
+  @FilterableField(() => Float)
   price: number;
 }

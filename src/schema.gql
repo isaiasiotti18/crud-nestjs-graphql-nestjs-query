@@ -102,13 +102,14 @@ input BrandFilter {
 
 input BrandFilterProductFilter {
   and: [BrandFilterProductFilter!]
+  brandId: NumberFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [BrandFilterProductFilter!]
-  price: NumberFieldComparison
+  price: FloatFieldComparison
   updatedAt: DateFieldComparison
 }
 
@@ -239,13 +240,14 @@ input CategoryFilter {
 
 input CategoryFilterProductFilter {
   and: [CategoryFilterProductFilter!]
+  brandId: NumberFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [CategoryFilterProductFilter!]
-  price: NumberFieldComparison
+  price: FloatFieldComparison
   updatedAt: DateFieldComparison
 }
 
@@ -339,9 +341,10 @@ input CreateOneProductInput {
 }
 
 input CreateProductInput {
+  brandId: Float
   description: String
   name: String!
-  price: Int!
+  price: Float!
 }
 
 input DateFieldComparison {
@@ -402,6 +405,26 @@ input DeleteOneCategoryInput {
 input DeleteOneProductInput {
   """The id of the record to delete."""
   id: ID!
+}
+
+input FloatFieldComparison {
+  between: FloatFieldComparisonBetween
+  eq: Float
+  gt: Float
+  gte: Float
+  in: [Float!]
+  is: Boolean
+  isNot: Boolean
+  lt: Float
+  lte: Float
+  neq: Float
+  notBetween: FloatFieldComparisonBetween
+  notIn: [Float!]
+}
+
+input FloatFieldComparisonBetween {
+  lower: Float!
+  upper: Float!
 }
 
 type Mutation {
@@ -482,7 +505,8 @@ input OffsetPaging {
 }
 
 type Product {
-  brand: Brand!
+  brand: Brand
+  brandId: Float
   categories(
     """Specify to filter the records returned."""
     filter: CategoryFilter = {}
@@ -503,6 +527,7 @@ type Product {
 }
 
 type ProductAggregateGroupBy {
+  brandId: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -513,6 +538,7 @@ type ProductAggregateGroupBy {
 }
 
 type ProductAvgAggregate {
+  brandId: Float
   price: Float
 }
 
@@ -539,6 +565,7 @@ type ProductConnection {
 }
 
 type ProductCountAggregate {
+  brandId: Int
   createdAt: Int
   deletedAt: Int
   description: Int
@@ -550,17 +577,19 @@ type ProductCountAggregate {
 
 input ProductDeleteFilter {
   and: [ProductDeleteFilter!]
+  brandId: NumberFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [ProductDeleteFilter!]
-  price: NumberFieldComparison
+  price: FloatFieldComparison
   updatedAt: DateFieldComparison
 }
 
 type ProductDeleteResponse {
+  brandId: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -573,6 +602,7 @@ type ProductDeleteResponse {
 input ProductFilter {
   and: [ProductFilter!]
   brand: ProductFilterBrandFilter
+  brandId: NumberFieldComparison
   categories: ProductFilterCategoryFilter
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
@@ -580,7 +610,7 @@ input ProductFilter {
   id: StringFieldComparison
   name: StringFieldComparison
   or: [ProductFilter!]
-  price: NumberFieldComparison
+  price: FloatFieldComparison
   updatedAt: DateFieldComparison
 }
 
@@ -605,6 +635,7 @@ input ProductFilterCategoryFilter {
 }
 
 type ProductMaxAggregate {
+  brandId: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -615,6 +646,7 @@ type ProductMaxAggregate {
 }
 
 type ProductMinAggregate {
+  brandId: Float
   createdAt: DateTime
   deletedAt: DateTime
   description: String
@@ -631,6 +663,7 @@ input ProductSort {
 }
 
 enum ProductSortFields {
+  brandId
   createdAt
   deletedAt
   description
@@ -641,18 +674,20 @@ enum ProductSortFields {
 }
 
 type ProductSumAggregate {
+  brandId: Float
   price: Float
 }
 
 input ProductUpdateFilter {
   and: [ProductUpdateFilter!]
+  brandId: NumberFieldComparison
   createdAt: DateFieldComparison
   deletedAt: DateFieldComparison
   description: StringFieldComparison
   id: StringFieldComparison
   name: StringFieldComparison
   or: [ProductUpdateFilter!]
-  price: NumberFieldComparison
+  price: FloatFieldComparison
   updatedAt: DateFieldComparison
 }
 
@@ -858,8 +893,9 @@ input UpdateOneProductInput {
 }
 
 input UpdateProductInput {
+  brandId: Float
   description: String
   id: ID
   name: String
-  price: Int
+  price: Float
 }
